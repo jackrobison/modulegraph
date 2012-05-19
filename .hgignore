@@ -1,0 +1,13 @@
+doc/build
+modulegraph.egg-info
+testsuite/testpkg-setuptools-namespace/src/nspkg.egg-info
+__pycache__
+build
+.DS_Store
+
+syntax: glob
+dist
+*.swp
+*.pyc
+*.dSYM
+*.pyo
