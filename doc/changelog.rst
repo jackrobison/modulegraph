@@ -1,6 +1,16 @@
 Release history
 ===============
 
+0.11
+----
+
+This is a feature release
+
+Features
+........
+
+* ...
+
 0.10.3
 ------
 
