@@ -3,7 +3,7 @@ modulegraph.find_modules - High-level module dependency finding interface
 =========================================================================
 
 History
-........ 
+........
 
 Originally (loosely) based on code in py2exe's build_exe.py by Thomas Heller.
 """
@@ -101,7 +101,7 @@ def parse_mf_results(mf):
     """
     Return two lists: the first one contains the python files in the graph,
     the second the C extensions.
-    
+
     :param mf: a :class:`modulegraph.modulegraph.ModuleGraph` instance
     """
     #for name, imports in get_hidden_imports().items():
@@ -290,7 +290,7 @@ def find_modules(scripts=(), includes=(), packages=(), excludes=(), path=None, d
     High-level interface, takes iterables for:
         scripts, includes, packages, excludes
 
-    And returns a :class:`modulegraph.modulegraph.ModuleGraph` instance, 
+    And returns a :class:`modulegraph.modulegraph.ModuleGraph` instance,
     python_files, and extensions
 
     python_files is a list of pure python dependencies as modulegraph.Module objects,
