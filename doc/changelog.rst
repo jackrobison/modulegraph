@@ -1,6 +1,19 @@
 Release history
 ===============
 
+0.11
+----
+
+This is a feature release
+
+Features
+........
+
+* Hardcode knowlegde about the compatibility aliases in the email
+  module (for python 2.5 upto 3.0).
+
+  This makes it possible to remove a heavy-handed recipe from py2app.
+
 0.10.5
 ------
 

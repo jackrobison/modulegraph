@@ -3,7 +3,7 @@ modulegraph.find_modules - High-level module dependency finding interface
 =========================================================================
 
 History
-........ 
+........
 
 Originally (loosely) based on code in py2exe's build_exe.py by Thomas Heller.
 """
@@ -59,6 +59,29 @@ def get_implies():
 
     }
 
+    if sys.version_info[0] == 2 and sys.version_info[1] >= 5:
+        result.update({
+            "email.base64MIME":         Alias("email.base64mime"),
+            "email.Charset":            Alias("email.charset"),
+            "email.Encoders":           Alias("email.encoders"),
+            "email.Errors":             Alias("email.errors"),
+            "email.Feedparser":         Alias("email.feedParser"),
+            "email.Generator":          Alias("email.generator"),
+            "email.Header":             Alias("email.header"),
+            "email.Iterators":          Alias("email.iterators"),
+            "email.Message":            Alias("email.message"),
+            "email.Parser":             Alias("email.parser"),
+            "email.quopriMIME":         Alias("email.quoprimime"),
+            "email.Utils":              Alias("email.utils"),
+            "email.MIMEAudio":          Alias("email.mime.audio"),
+            "email.MIMEBase":           Alias("email.mime.base"),
+            "email.MIMEImage":          Alias("email.mime.image"),
+            "email.MIMEMessage":        Alias("email.mime.message"),
+            "email.MIMEMultipart":      Alias("email.mime.multipart"),
+            "email.MIMENonMultipart":   Alias("email.mime.nonmultipart"),
+            "email.MIMEText":           Alias("email.mime.text"),
+        })
+
     if sys.version_info[:2] >= (2, 5):
         result["_elementtree"] = ["pyexpat"]
 
@@ -77,7 +100,7 @@ def parse_mf_results(mf):
     """
     Return two lists: the first one contains the python files in the graph,
     the second the C extensions.
-    
+
     :param mf: a :class:`modulegraph.modulegraph.ModuleGraph` instance
     """
     #for name, imports in get_hidden_imports().items():
@@ -264,7 +287,7 @@ def find_modules(scripts=(), includes=(), packages=(), excludes=(), path=None, d
     High-level interface, takes iterables for:
         scripts, includes, packages, excludes
 
-    And returns a :class:`modulegraph.modulegraph.ModuleGraph` instance, 
+    And returns a :class:`modulegraph.modulegraph.ModuleGraph` instance,
     python_files, and extensions
 
     python_files is a list of pure python dependencies as modulegraph.Module objects,
