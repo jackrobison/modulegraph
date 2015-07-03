@@ -1,16 +1,22 @@
 Release history
 ===============
 
-
 0.13
 ----
+
+* Various documentation fixes by Thomas Kluyver.
+
+0.12.2
+------
 
 * ?
 
 0.12.1
 ------
 
-* ?
+* Issue #25: Complex python files could cause an "maximum recursion depth exceeded"
+  exception due to using stack-based recursion to walk the module AST.
+
 
 0.12
 ----
