@@ -2,6 +2,7 @@ from __future__ import absolute_import
 
 import os
 import imp
+import importlib
 import sys
 import re
 import marshal
@@ -21,6 +22,10 @@ else:
     from io import BytesIO, StringIO
 
 
+def importlib_find_module(name, package):
+    path = importlib.import_module(name, package).__path__[0]
+    return (None, path)
+
 
 def imp_find_module(name, path=None):
     """
@@ -31,11 +36,15 @@ def imp_find_module(name, path=None):
         if isinstance(path, (str, unicode)):
             path = [os.path.realpath(path)]
     for name in names:
-        result = imp.find_module(name, path)
-        if result[0] is not None:
-            result[0].close()
+        try:
+            result = imp.find_module(name, path)
+            if result[0] is not None:
+                result[0].close()
+        except ImportError:
+            result = importlib_find_module(name, path)
         path = [result[1]]
     return result
+
 
 def _check_importer_for_path(name, path_item):
     try:
@@ -51,13 +60,13 @@ def _check_importer_for_path(name, path_item):
             importer = None
         sys.path_importer_cache.setdefault(path_item, importer)
 
-
     if importer is None:
         try:
             return imp.find_module(name, [path_item])
         except ImportError:
             return None
     return importer.find_module(name)
+
 
 def imp_walk(name):
     """
@@ -80,7 +89,7 @@ def imp_walk(name):
                     fp = StringIO(res.get_source(namepart))
                     res = (fp, res.path, ('.py', 'rU', imp.PY_SOURCE))
                 elif res.path.endswith('.pyc') or res.path.endswith('.pyo'):
-                    co  = res.get_code(namepart)
+                    co = res.get_code(namepart)
                     fp = BytesIO(imp.get_magic() + b'\0\0\0\0' + marshal.dumps(co))
                     res = (fp, res.path, ('.pyc', 'rb', imp.PY_COMPILED))
 
@@ -107,8 +116,8 @@ if sys.version_info[0] == 2:
 else:
     default_encoding = 'utf-8'
 
-def guess_encoding(fp):
 
+def guess_encoding(fp):
     for i in range(2):
         ln = fp.readline()
 
