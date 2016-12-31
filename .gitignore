@@ -1,0 +1,12 @@
+doc/build
+modulegraph.egg-info
+testsuite/testpkg-setuptools-namespace/src/nspkg.egg-info
+__pycache__
+build
+dist
+htmlcov
+.coverage
+.DS_Store
+.tox
+.idea
+*.pyc
